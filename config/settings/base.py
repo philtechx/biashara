@@ -10,21 +10,27 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
-from pathlib import Path
 import os
+from pathlib import Path
+from decouple import config
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-@1(@r&6m&^c#jkn#)pt2v=00rrb5wnt!ya+j857k36dkz50(hq'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config(
+    'DEBUG',
+    default=False,
+    cast=bool
+)
 
 ALLOWED_HOSTS = []
 
@@ -40,9 +46,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     #My Apps
-    'accounts',
-    'businesses',
-    'dashboard',
+    'apps.accounts',
+    'apps.businesses',
+    'apps.dashboard',
+    'apps.catalog',
+    'apps.purchases',
+    'apps.sales',
+    'apps.customers',
+    'apps.analytics',
+    'apps.expenses',
+    'apps.core',
 ]
 
 MIDDLEWARE = [
